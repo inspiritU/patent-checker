@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./patent-checker-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+    volumes:
+      - ./patent-checker-backend:/app
+    depends_on:
+      - frontend
+
+  frontend:
+    build:
+      context: ./patent-checker-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./patent-checker-frontend:/usr/src/app
